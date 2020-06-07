@@ -1,115 +1,129 @@
 % Gian Lucas Martín Chamorro    - 45191442F
 % Irene Vera Barea              - 49775372Z
 
-asignatura(estadistica).
-asignatura(algebra).
-asignatura(computadors).
-asignatura(programacio).
-asignatura(fisica).
-
-% Insertar un elemento en una posición de la lista.
-insertar(E,L,[E|L]).
-insertar(E,[X|Y],[X|Z]):-insertar(E,Y,Z).
-% Permutaciones de una lista
-permutacion([],[]).
-permutacion([X|Y],Z):-permutacion(Y,L),insertar(X,L,Z).
+% Assignatures
+assignatura(estadistica).
+assignatura(algebra).
+assignatura(computadors).
+assignatura(programacio).
+assignatura(fisica).
 
 % Genera un horari per un dia genèric
 horari([A1,A2,A3,A4,A5]):-
-    asignatura(A1),
-    asignatura(A2),
-    asignatura(A3),
-    asignatura(A4),
-    asignatura(A5),
-    % L is [A1,A2,A3,A4,A5],
-    contar(estadistica,[A1,A2,A3,A4,A5],N1),N1=<3,
-    contar(algebra,[A1,A2,A3,A4,A5],N2),N2=<3,
-    contar(computadors,[A1,A2,A3,A4,A5],N3),N3=<3,
-    contar(programacio,[A1,A2,A3,A4,A5],N4),N4=<3,
-    contar(fisica,[A1,A2,A3,A4,A5],N5),N5=<3,
-    not(tresSeguides(estadistica,[A1,A2,A3,A4,A5])),
-    not(tresSeguides(algebra,[A1,A2,A3,A4,A5])),
-    not(tresSeguides(computadors,[A1,A2,A3,A4,A5])),
-    not(tresSeguides(programacio,[A1,A2,A3,A4,A5])),
-    not(tresSeguides(fisica,[A1,A2,A3,A4,A5])).
+    assignatura(A1),
+    assignatura(A2),
+    assignatura(A3),
+    assignatura(A4),
+    assignatura(A5),
+    append([A1,A2,A3,A4,A5],[],L),
+    % aquí comptarà que en un dia no es puguin fer més de tres hores d'una assignatura
+    comptar(L,N1,estadistica),     
+    comptar(L,N2,algebra),
+    comptar(L,N3,computadors),
+    comptar(L,N4,programacio),
+    comptar(L,N5,fisica),
+    N1=<3,N2=<3,N3=<3,N4=<3,N5=<3,
+    % a més, mirará que cap assignatura tengui 3 hores seguides
+    not(tresSeguides(L,estadistica)),
+    not(tresSeguides(L,algebra)),
+    not(tresSeguides(L,computadors)),
+    not(tresSeguides(L,programacio)),
+    not(tresSeguides(L,fisica)).
 
 horariGeneracio:-
-    % Lunes
+    % Dilluns
     horari([DL1,DL2,DL3,DL4,DL5]),
-    % DL1\=algebra,DL2\=algebra,DL3\=algebra,
-    % DL1\=computadors,DL2\=computadors,DL3\=computadors,
-    % DL3\=fisica,DL4\=fisica,DL5\=fisica,
-    not(member(algebra,[DL1,DL2,DL3])),
-    not(member(computadors,[DL1,DL2,DL3])),
-    not(member(fisica,[DL3,DL4,DL5])),
-    % Martes
-    horari([DM1,DM2,DM3,DM4,DM5]),
-    % DM1\=algebra,DM2\=algebra,DM3\=algebra,
-    % DM1\=computadors,DM2\=computadors,DM3\=computadors,DM4\=computadors,DM5\=computadors,
-    % DM1\=programacio,DM2\=programacio,DM3\=programacio,DM4\=programacio,DM5\=programacio,
-    % DM2\=fisica,DM3\=fisica,DM4\=fisica,DM5\=fisica,
-    not(member(algebra,[DM1,DM2,DM3])), % Álgebra cualquier día a partir de las 18:30.
-    not(member(computadors,[DM1,DM2,DM3,DM4,DM5])),
-    not(member(programacio,[DM1,DM2,DM3,DM4,DM5])),
-    not(member(fisica,[DM2,DM3,DM4,DM5])),
-    % Miércoles
-
-    horari([DX1,DX2,DX3,DX4,DX5]),
-    % DX1\=algebra,DX2\=algebra,DX3\=algebra,
-    % DX1\=computadors,DX2\=computadors,DX3\=computadors,
-    % DX3\=fisica,DX4\=fisica,DX5\=fisica,
+    % àlgebra pot a partir de la quarta hora (18:30)
+    not(member(algebra,[DL1,DL2,DL3])),   
+    % els dilluns, computadors ha de ser a partir de la quarta hora (18:30)              
+    not(member(computadors,[DL1,DL2,DL3])),   
+    % els dilluns, física no pot ser abans de la tercera hora (17:30)         
+    not(member(fisica,[DL3,DL4,DL5])),                  
+    % altre manera d'interpretar l'enunciat:
+    % not(member(fisica,[DL4,DL5])),                    
     
+    % Dimarts
+    horari([DM1,DM2,DM3,DM4,DM5]),
+    % àlgebra pot a partir de la quarta hora (18:30h)
+    not(member(algebra,[DM1,DM2,DM3])),   
+    % computadors no es pot fer els dimarts              
+    not(member(computadors,[DM1,DM2,DM3,DM4,DM5])),     
+    % programació no es pot fer els dimarts
+    not(member(programacio,[DM1,DM2,DM3,DM4,DM5])),    
+    % els dimarts, física no pot ser abans de la segona hora (16:30h) 
+    not(member(fisica,[DM2,DM3,DM4,DM5])),   
+    % altre manera d'interpretar l'enunciat:           
+    % not(member(fisica,[DM3,DM4,DM5])),
+
+    % Dimecres
+    horari([DX1,DX2,DX3,DX4,DX5]),
+    % àlgebra pot a partir de la quarta hora (18:30h)
     not(member(algebra,[DX1,DX2,DX3])),
+    % els dimecres, computadors ha de ser a partir de la quarta hora (18:30)
     not(member(computadors,[DX1,DX2,DX3])),
+    % dimecres, física no pot ser abans de la tercera hora (17:30)
     not(member(fisica,[DX3,DX4,DX5])),
+    % altre manera d'interpretar l'enunciat:
+    % not(member(fisica,[DX4,DX5])),
 
-    % Horas semanales
-
-    horasSemanales(estadistica,[[DL1,DL2,DL3,DL4,DL5],[DM1,DM2,DM3,DM4,DM5],[DX1,DX2,DX3,DX4,DX5]]),
-    horasSemanales(algebra,[[DL1,DL2,DL3,DL4,DL5],[DM1,DM2,DM3,DM4,DM5],[DX1,DX2,DX3,DX4,DX5]]),
-    horasSemanales(computadors,[[DL1,DL2,DL3,DL4,DL5],[DM1,DM2,DM3,DM4,DM5],[DX1,DX2,DX3,DX4,DX5]]),
-    horasSemanales(fisica,[[DL1,DL2,DL3,DL4,DL5],[DM1,DM2,DM3,DM4,DM5],[DX1,DX2,DX3,DX4,DX5]]),
-    horasSemanales(programacio,[[DL1,DL2,DL3,DL4,DL5],[DM1,DM2,DM3,DM4,DM5],[DX1,DX2,DX3,DX4,DX5]]),
-    % write([DL1,DL2,DL3,DL4,DL5]),nl,write([DM1,DM2,DM3,DM4,DM5]),nl,write([DX1,DX2,DX3,DX4,DX5]),nl,nl,
+    % Buffer per comprovar les restriccions
+    append([DL1,DL2,DL3,DL4,DL5],[],DL),
+    append([DM1,DM2,DM3,DM4,DM5],[],DM),
+    append([DX1,DX2,DX3,DX4,DX5],[],DX),
+    % Hores setmanals
+    horesSetmanals([DL,DM,DX]),
+    % horesSetmanals(algebra,[DL,DM,DX]),
+    % horesSetmanals(computadors,[DL,DM,DX]),
+    % horesSetmanals(fisica,[DL,DM,DX]),
+    % horesSetmanals(programacio,[DL,DM,DX]),
+    write(DL),nl,write(DM),nl,write(DX),nl,nl,
    	comptador(Com),
 	Com1 is Com+1,
 	retract(comptador(_)),
 	asserta(comptador(Com1)),
     fail.
 
-horari:-retractall(comptador(_)),asserta(comptador(0)),horariGeneracio.
-horari:-comptador(X),nl,nl,write("En total hi ha "),write(X),write(" solucions").
+% Per guardar els resultats a un arxiu i el nombre total de solucions
+horari:-retractall(comptador(_)),asserta(comptador(0)),
+    tell('resultats.txt'),horariGeneracio.
+horari:-comptador(X),nl,nl,write("En total hi ha "),write(X),write(" solucions"),told,
+    write("En total hi ha "),write(X),write(" solucions").
 
-horasDiarias(_,[],0).
-horasDiarias(X,[X|L],N):-!,horasDiarias(X,L,N1),N is N1+1.
-horasDiarias(X,[_|L],N):-horasDiarias(X,L,N).
- 
-horasSemanales(X,[L1,L2,L3]):-
-    contar(X,L1,N1),contar(X,L2,N2),contar(X,L3,N3),
-    3 is N1+N2+N3.
+% Per comprovar les restriccions de l'horari d'un dia
+restriccionsDiaries(L):-
+    % aquí comptarà que en un dia no es puguin fer més de tres hores d'una assignatura
+    comptar(L,N1,estadistica),     
+    comptar(L,N2,algebra),
+    comptar(L,N3,computadors),
+    comptar(L,N4,programacio),
+    comptar(L,N5,fisica),
+    N1=<3,N2=<3,N3=<3,N4=<3,N5=<3,
+    % a més, mirará que cap assignatura tengui 3 hores seguides
+    not(tresSeguides(L,estadistica)),
+    not(tresSeguides(L,algebra)),
+    not(tresSeguides(L,computadors)),
+    not(tresSeguides(L,programacio)),
+    not(tresSeguides(L,fisica)).
 
-% Para asegurar que una asignatura no tiene 3 horas seguidas en un mismo día.
-tresSeguides(X,[X,X,X|_]).
-tresSeguides(X,[_|L]):-tresSeguides(X,L).
+% Per comprovar que cap assignatura es fa més de 3 hores a la setmana
+horesSetmanals([L1,L2,L3]):-
+    comptar(L1,NA1,algebra),comptar(L2,NA2,algebra),comptar(L3,NA3,algebra),
+    3 is NA1+NA2+NA3,
+    comptar(L1,NF1,fisica),comptar(L2,NF2,fisica),comptar(L3,NF3,fisica),
+    3 is NF1+NF2+NF3,
+    comptar(L1,NC1,computadors),comptar(L2,NC2,computadors),comptar(L3,NC3,computadors),
+    3 is NC1+NC2+NC3,
+    comptar(L1,NP1,programacio),comptar(L2,NP2,programacio),comptar(L3,NP3,programacio),
+    3 is NP1+NP2+NP3,
+    comptar(L1,NE1,estadistica),comptar(L2,NE2,estadistica),comptar(L3,NE3,estadistica),
+    3 is NE1+NE2+NE3.
+    
 
-contar(_,[],0).
-contar(X,[X|L],N):-!,contar(X,L,N1),N is N1+1.
-contar(X,[_|L],N):-contar(X,L,N).
+% Per a assegurar que una assignatura no té 3 hores seguides en un mateix dia.
+tresSeguides([X,X,X|_],X).
+tresSeguides([_|L],X):-tresSeguides(L,X).
 
-
-% Comença la cerca de solucions
-% horari:-.
-
-/*  X -Lunes, martes y miércoles. 5 hores al día.
-    X -3 horas de clase semanales.
-    X -Una asignatura no puede hacerse durante 3h seguidas, pero sí 3h un mismo día.
-    X -Estadística puede ser cualquier hora.
-    X -Algébra cualquier día a partir de las 18:30.
-    X -Computadores lunes y miércoles a partir de las 18:30.
-    X -Programación lunes y miércoles a cualquier hora.
-    X -Física no puede más tarde de las 17:30, excepto los martes, que no puede a partir de las 16:30.
-*/
-
-/*write, nl, fail
-    tell(), told. resultats.txt Nº total de horarios.
-*/
+% Per comptar el nombre d'aparicions d'un element a una llista
+comptar([],0,_).
+comptar([X|L],N,X):-!,comptar(L,N1,X),N is N1+1.
+comptar([_|L],N,X):-comptar(L,N,X).
