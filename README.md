@@ -14,7 +14,7 @@ son las siguientes:
 - Las clases se harán los lunes, los martes y los miércoles de 15:30 a 20:30 (5 horas diarias).
 - No se pueden hacer tres horas seguidas de la misma asignatura pero si tres el mismo día (siempre que haya otra en el medio).
 - Al profesor de estadística le va bien cualquier día a cualquier hora.
-- A la profesora de álgebra le van bien los lunes y los miércoles a cualquier hora.
+- A la profesora de álgebra le va bien cualquier día a partir de las 18:30h.
 - Al profesor de computadores le van bien los lunes y los miércoles a partir de las 18:30h.
 - A la profesora de programación le van bien los lunes y los miércoles a cualquier hora.
 - Al profesor de física no le va bien más tarde de las 17:30h. Excepto los martes, que no puede a partir de las 16:30h.
