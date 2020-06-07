@@ -16,7 +16,7 @@ horari([A1,A2,A3,A4,A5]):-
     assignatura(A4),
     assignatura(A5),
     append([A1,A2,A3,A4,A5],[],L),
-    % aquí comptarà que en un dia no es puguin fer més de tres hores d'una assignatura
+    % comptarà que en un dia no es facin més de tres hores d'una assignatura
     comptar(L,N1,estadistica),     
     comptar(L,N2,algebra),
     comptar(L,N3,computadors),
@@ -72,10 +72,6 @@ horariGeneracio:-
     append([DX1,DX2,DX3,DX4,DX5],[],DX),
     % Hores setmanals
     horesSetmanals([DL,DM,DX]),
-    % horesSetmanals(algebra,[DL,DM,DX]),
-    % horesSetmanals(computadors,[DL,DM,DX]),
-    % horesSetmanals(fisica,[DL,DM,DX]),
-    % horesSetmanals(programacio,[DL,DM,DX]),
     write(DL),nl,write(DM),nl,write(DX),nl,nl,
    	comptador(Com),
 	Com1 is Com+1,
@@ -117,9 +113,8 @@ horesSetmanals([L1,L2,L3]):-
     3 is NP1+NP2+NP3,
     comptar(L1,NE1,estadistica),comptar(L2,NE2,estadistica),comptar(L3,NE3,estadistica),
     3 is NE1+NE2+NE3.
-    
 
-% Per a assegurar que una assignatura no té 3 hores seguides en un mateix dia.
+% Per a assegurar que una assignatura no té 3 hores seguides en un mateix dia
 tresSeguides([X,X,X|_],X).
 tresSeguides([_|L],X):-tresSeguides(L,X).
 
