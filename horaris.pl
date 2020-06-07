@@ -18,6 +18,7 @@ horari(L):-
     append([A1,A2,A3,A4,A5],[],L),
     horesDiaries(L).
 
+% Genera un horari per la setmana
 horariGeneracio:-
     % Dilluns
     horari([DL1,DL2,DL3,DL4,DL5]),
@@ -75,14 +76,7 @@ horari:-comptador(X),nl,nl,write("En total hi ha "),write(X),write(" solucions")
 
 % Per comprovar les restriccions de l'horari d'un dia
 horesDiaries(L):-
-    % comptarà que en un dia no es facin més de tres hores d'una assignatura
-    comptar(L,N1,estadistica),
-    comptar(L,N2,algebra),
-    comptar(L,N3,computadors),
-    comptar(L,N4,programacio),
-    comptar(L,N5,fisica),
-    N1=<3,N2=<3,N3=<3,N4=<3,N5=<3,
-    % a més, mirará que cap assignatura tengui 3 hores seguides
+    %cap assignatura pot tenir 3 hores seguides
     not(tresSeguides(L,estadistica)),
     not(tresSeguides(L,algebra)),
     not(tresSeguides(L,computadors)),
