@@ -10,14 +10,13 @@ assignatura(fisica).
 
 % Genera un horari per un dia genèric que compleix la restricció de que cap 
 % assignatura pot tenir 3 hores o més seguides.
-horari(L):-
+horari([A1,A2,A3,A4,A5]):-
     assignatura(A1),
     assignatura(A2),
     assignatura(A3),
     assignatura(A4),
     assignatura(A5),
-    append([A1,A2,A3,A4,A5],[],L),
-    horesDiaries(L).
+    horesDiaries([A1,A2,A3,A4,A5]).
 
 % Genera un horari per la setmana que compleix les restriccions de tots els 
 % profesors i on cap assignatura té més de 3 hores setmanals.
@@ -57,13 +56,11 @@ horariGeneracio:-
     % altre manera d'interpretar l'enunciat:
     % not(member(fisica,[DX4,DX5])),
 
-    % Buffer per comprovar les restriccions
-    append([DL1,DL2,DL3,DL4,DL5],[],DL),
-    append([DM1,DM2,DM3,DM4,DM5],[],DM),
-    append([DX1,DX2,DX3,DX4,DX5],[],DX),
     % Hores setmanals
-    horesSetmanals([DL,DM,DX]),
-    write(DL),nl,write(DM),nl,write(DX),nl,nl,
+    horesSetmanals([[DL1,DL2,DL3,DL4,DL5],[DM1,DM2,DM3,DM4,DM5],[DX1,DX2,DX3,DX4,DX5]]),
+    write([DL1,DL2,DL3,DL4,DL5]),nl,
+    write([DM1,DM2,DM3,DM4,DM5]),nl,
+    write([DX1,DX2,DX3,DX4,DX5]),nl,nl,
    	comptador(Com),
 	Com1 is Com+1,
 	retract(comptador(_)),
