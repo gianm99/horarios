@@ -17,7 +17,10 @@ comptar([],0,_).
 comptar([X|L],N,X):-!,comptar(L,N1,X),N is N1+1.
 comptar([_|L],N,X):-comptar(L,N,X).
 
-% Per comprovar les restriccions de l'horari d'un dia
+% Per comprovar les restriccions de l'horari d'un dia. Només es comprova que 
+% no es fan 3 hores seguides d'una mateixa assignatura, la restricció de que
+% una assignatura no es pot fer més de 3 hores en un dia ja es comprova amb
+% la restricció de que una assignatura ha de tenir 3 hores setmanals.
 horesDiaries(L):-
     %cap assignatura pot tenir 3 hores seguides
     not(tresSeguides(L,estadistica)),
@@ -47,10 +50,10 @@ horari([A1,A2,A3,A4,A5]):-
     assignatura(A5),
     horesDiaries([A1,A2,A3,A4,A5]).
 
-% Genera un horari per la setmana que compleix les restriccions de tots els 
-% profesors i on cap assignatura té més de 3 hores setmanals.
+% Genera un horari per la setmana que compleix totes les restriccions.
 horaris:-
     % Dimarts
+    % Primer es comproven els dimarts perquè es el dia amb més restriccions.
     horari([DM1,DM2,DM3,DM4,DM5]),
     % computadors no es pot fer els dimarts
     not(member(computadors,[DM1,DM2,DM3,DM4,DM5])),
@@ -85,7 +88,7 @@ horaris:-
     % altre manera d'interpretar l'enunciat:
     % not(member(fisica,[DX4,DX5])),
 
-    % Hores setmanals
+    % La restricció de que totes les assignatures tenen 3 hores setmanals
     horesSetmanals([[DL1,DL2,DL3,DL4,DL5],[DM1,DM2,DM3,DM4,DM5],[DX1,DX2,DX3,DX4,DX5]]),
     write([DL1,DL2,DL3,DL4,DL5]),nl,
     write([DM1,DM2,DM3,DM4,DM5]),nl,
