@@ -50,18 +50,20 @@ horari([A1,A2,A3,A4,A5]):-
     assignatura(A5),
     horesDiaries([A1,A2,A3,A4,A5]).
 
-% Genera un horari per la setmana que compleix totes les restriccions.
+% Genera un horari per la setmana que compleix totes les restriccions. Primer 
+% es comproven els dimarts perquè es el dia amb més restriccions. L'ordre en 
+% que es comproven les restriccions de cada assignatura està determinat per 
+% quina assignatura es més restrictiva.
 horaris:-
     % Dimarts
-    % Primer es comproven els dimarts perquè es el dia amb més restriccions.
     horari([DM1,DM2,DM3,DM4,DM5]),
     % computadors no es pot fer els dimarts
     not(member(computadors,[DM1,DM2,DM3,DM4,DM5])),
     % programació no es pot fer els dimarts
     not(member(programacio,[DM1,DM2,DM3,DM4,DM5])),
-    % els dimarts, física no pot ser abans de la segona hora (16:30h)
+    % els dimarts, física no pot ser a partir de la segona hora (16:30h), inclosa
     not(member(fisica,[DM2,DM3,DM4,DM5])),
-    % altre manera d'interpretar l'enunciat:
+    % si no s'inclou la segona  hora (16:30):
     % not(member(fisica,[DM3,DM4,DM5])),
     % àlgebra pot a partir de la quarta hora (18:30h)
     not(member(algebra,[DM1,DM2,DM3])),
@@ -72,9 +74,9 @@ horaris:-
     not(member(algebra,[DL1,DL2,DL3])),
     % els dilluns, computadors ha de ser a partir de la quarta hora (18:30)
     not(member(computadors,[DL1,DL2,DL3])),
-    % els dilluns, física no pot ser abans de la tercera hora (17:30)
+    % els dilluns, física no pot ser a partir de la tercera hora (17:30), inclosa
     not(member(fisica,[DL3,DL4,DL5])),
-    % altre manera d'interpretar l'enunciat:
+    % si no s'inclou la tercera hora (17:30):
     % not(member(fisica,[DL4,DL5])),
 
     % Dimecres
@@ -83,9 +85,9 @@ horaris:-
     not(member(algebra,[DX1,DX2,DX3])),
     % els dimecres, computadors ha de ser a partir de la quarta hora (18:30)
     not(member(computadors,[DX1,DX2,DX3])),
-    % dimecres, física no pot ser abans de la tercera hora (17:30)
+    % dimecres, física no pot ser a partir de la tercera hora (17:30), inclosa
     not(member(fisica,[DX3,DX4,DX5])),
-    % altre manera d'interpretar l'enunciat:
+    % si no s'inclou la tercera hora (17:30):
     % not(member(fisica,[DX4,DX5])),
 
     % La restricció de que totes les assignatures tenen 3 hores setmanals
