@@ -33,8 +33,6 @@ horariGeneracio:-
 
     % Dimarts
     horari([DM1,DM2,DM3,DM4,DM5]),
-    % àlgebra pot a partir de la quarta hora (18:30h)
-    not(member(algebra,[DM1,DM2,DM3])),
     % computadors no es pot fer els dimarts
     not(member(computadors,[DM1,DM2,DM3,DM4,DM5])),
     % programació no es pot fer els dimarts
@@ -43,6 +41,8 @@ horariGeneracio:-
     not(member(fisica,[DM2,DM3,DM4,DM5])),
     % altre manera d'interpretar l'enunciat:
     % not(member(fisica,[DM3,DM4,DM5])),
+    % àlgebra pot a partir de la quarta hora (18:30h)
+    not(member(algebra,[DM1,DM2,DM3])),
 
     % Dimecres
     horari([DX1,DX2,DX3,DX4,DX5]),
