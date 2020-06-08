@@ -92,9 +92,9 @@ horaris:-
 
     % La restricció de que totes les assignatures tenen 3 hores setmanals
     horesSetmanals([[DL1,DL2,DL3,DL4,DL5],[DM1,DM2,DM3,DM4,DM5],[DX1,DX2,DX3,DX4,DX5]]),
-    write([DL1,DL2,DL3,DL4,DL5]),nl,
-    write([DM1,DM2,DM3,DM4,DM5]),nl,
-    write([DX1,DX2,DX3,DX4,DX5]),nl,nl,
+    write('Dilluns: '),write([DL1,DL2,DL3,DL4,DL5]),nl,
+    write('Dimarts: '),write([DM1,DM2,DM3,DM4,DM5]),nl,
+    write('Dimecres: '),write([DX1,DX2,DX3,DX4,DX5]),nl,nl,
    	comptador(Com),
 	Com1 is Com+1,
 	retract(comptador(_)),
