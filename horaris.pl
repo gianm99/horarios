@@ -8,7 +8,8 @@ assignatura(computadors).
 assignatura(programacio).
 assignatura(fisica).
 
-% Genera un horari per un dia genèric
+% Genera un horari per un dia genèric que compleix la restricció de que cap 
+% assignatura pot tenir 3 hores o més seguides.
 horari(L):-
     assignatura(A1),
     assignatura(A2),
@@ -18,7 +19,8 @@ horari(L):-
     append([A1,A2,A3,A4,A5],[],L),
     horesDiaries(L).
 
-% Genera un horari per la setmana
+% Genera un horari per la setmana que compleix les restriccions de tots els 
+% profesors i on cap assignatura té més de 3 hores setmanals.
 horariGeneracio:-
     % Dimarts
     horari([DM1,DM2,DM3,DM4,DM5]),
