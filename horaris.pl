@@ -20,17 +20,6 @@ horari(L):-
 
 % Genera un horari per la setmana
 horariGeneracio:-
-    % Dilluns
-    horari([DL1,DL2,DL3,DL4,DL5]),
-    % àlgebra pot a partir de la quarta hora (18:30)
-    not(member(algebra,[DL1,DL2,DL3])),
-    % els dilluns, computadors ha de ser a partir de la quarta hora (18:30)
-    not(member(computadors,[DL1,DL2,DL3])),
-    % els dilluns, física no pot ser abans de la tercera hora (17:30)
-    not(member(fisica,[DL3,DL4,DL5])),
-    % altre manera d'interpretar l'enunciat:
-    % not(member(fisica,[DL4,DL5])),
-
     % Dimarts
     horari([DM1,DM2,DM3,DM4,DM5]),
     % computadors no es pot fer els dimarts
@@ -43,6 +32,17 @@ horariGeneracio:-
     % not(member(fisica,[DM3,DM4,DM5])),
     % àlgebra pot a partir de la quarta hora (18:30h)
     not(member(algebra,[DM1,DM2,DM3])),
+
+    % Dilluns
+    horari([DL1,DL2,DL3,DL4,DL5]),
+    % àlgebra pot a partir de la quarta hora (18:30)
+    not(member(algebra,[DL1,DL2,DL3])),
+    % els dilluns, computadors ha de ser a partir de la quarta hora (18:30)
+    not(member(computadors,[DL1,DL2,DL3])),
+    % els dilluns, física no pot ser abans de la tercera hora (17:30)
+    not(member(fisica,[DL3,DL4,DL5])),
+    % altre manera d'interpretar l'enunciat:
+    % not(member(fisica,[DL4,DL5])),
 
     % Dimecres
     horari([DX1,DX2,DX3,DX4,DX5]),
