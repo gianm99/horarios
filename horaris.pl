@@ -85,8 +85,6 @@ horesDiaries(L):-
 
 % Per comprovar que cap assignatura es fa més de 3 hores a la setmana
 horesSetmanals([L1,L2,L3]):-
-    comptar(L1,NA1,algebra),comptar(L2,NA2,algebra),comptar(L3,NA3,algebra),
-    3 is NA1+NA2+NA3,
     comptar(L1,NF1,fisica),comptar(L2,NF2,fisica),comptar(L3,NF3,fisica),
     3 is NF1+NF2+NF3,
     comptar(L1,NC1,computadors),comptar(L2,NC2,computadors),comptar(L3,NC3,computadors),
