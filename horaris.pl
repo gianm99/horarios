@@ -92,17 +92,37 @@ horaris:-
 
     % La restricció de que totes les assignatures tenen 3 hores setmanals
     horesSetmanals([[DL1,DL2,DL3,DL4,DL5],[DM1,DM2,DM3,DM4,DM5],[DX1,DX2,DX3,DX4,DX5]]),
-    write([DL1,DL2,DL3,DL4,DL5]),nl,
-    write([DM1,DM2,DM3,DM4,DM5]),nl,
-    write([DX1,DX2,DX3,DX4,DX5]),nl,nl,
-   	comptador(Com),
-	Com1 is Com+1,
-	retract(comptador(_)),
-	asserta(comptador(Com1)),
+    write('existe('),
+    write([[DL1,DL2,DL3,DL4,DL5],[DM1,DM2,DM3,DM4,DM5],[DX1,DX2,DX3,DX4,DX5]]),
+    write(').'),nl,
+   	% comptador(Com),
+	% Com1 is Com+1,
+	% retract(comptador(_)),
+	% asserta(comptador(Com1)),
     fail.
 
 % Per guardar els resultats a un arxiu i el nombre total de solucions
 horari:-retractall(comptador(_)),asserta(comptador(0)),
     tell('resultats.txt'),horaris.
-horari:-comptador(X),nl,nl,write("En total hi ha "),write(X),write(" solucions"),told,
-    write("En total hi ha "),write(X),write(" solucions").
+horari:-told.
+% horari:-comptador(X),nl,nl,write("En total hi ha "),write(X),write(" solucions"),told,
+%     write("En total hi ha "),write(X),write(" solucions").
+comprobar(L):-see('resultats.txt'),
+    llegeix(L),length(L,N),nl,
+    write(L),nl,
+    write("Elements:"),write(N),
+    seen,diferents(L,L2),length(L2,N1),nl,write("Diferents:"),write(N1).
+
+llegeix([A|L]):-read(A),A\=end_of_file,llegeix(L),!.
+llegeix([]).
+
+diferents([],[]).
+diferents([X|L1],[X|L2]):-not(pertany(X,L1)),!,diferents(L1,L2).
+diferents([X|L1],[X|L2]):-esborrarTotes(X,L1,L3),diferents(L3,L2).
+
+esborrarTotes(_,[],[]).
+esborrarTotes(E,[E|L],M):-!,esborrarTotes(E,L,M).
+esborrarTotes(E,[A|L1],[A|L2]):-esborrarTotes(E,L1,L2).
+
+pertany(A,[A,_]).
+pertany(A,[_,C]):-pertany(A,C).
